@@ -1,0 +1,23 @@
+version: '2'
+services:
+    kernel:
+        build: Dockerfile-kernel
+        image: mika/kernel
+        container_name: mika-kernel
+        ports:
+            - "5000:5000"
+        restart: always
+    nlp:
+        build: Dockerfile-nlp
+        image: mika/nlp
+        container_name: mika-nlp
+        ports:
+            - "9000:9000"
+        restart: always
+    uibasic:
+        build: Dockerfile-ui-basic
+        image: mika/ui-basic
+        container_name: mika-ui-basic
+        ports:
+            - "80:80"
+        restart: always
