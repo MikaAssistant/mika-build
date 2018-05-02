@@ -1,23 +1,37 @@
 version: '2'
 services:
     kernel:
-        build: Dockerfile-kernel
+        build: ./kernel
         image: mika/kernel
         container_name: mika-kernel
+        links:
+            - redis
         ports:
             - "5000:5000"
+        depends_on:
+            - redis
         restart: always
     nlp:
-        build: Dockerfile-nlp
+        build: ./nlp
         image: mika/nlp
         container_name: mika-nlp
         ports:
-            - "9000:9000"
+            - "9090:9090"
+        depends_on:
+            - kernel
         restart: always
     uibasic:
-        build: Dockerfile-ui-basic
-        image: mika/ui-basic
+        build: ./uibasic
+        image: mika/uibasic
         container_name: mika-ui-basic
         ports:
-            - "80:80"
+            - "8000:8000"
+        depends_on:
+            - nlp
         restart: always
+    redis:
+        image: redis
+        container_name: redis
+        ports:
+            - "6379"
+
