@@ -8,7 +8,7 @@ RUN npm i pm2 -g --silent
 
 # BUILD
 WORKDIR /home/node
-RUN git clone https://github.com/MikaAssistant/smarthome.git app
+RUN git clone https://github.com/MikaAssistant/mika-smarthome.git app
 WORKDIR /home/node/app
 ADD ./.env /home/node/app/.env
 RUN npm install --silent
