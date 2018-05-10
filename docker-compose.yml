@@ -4,34 +4,40 @@ services:
         build: ./kernel
         image: mika/kernel
         container_name: mika-kernel
-        links:
-            - redis
-        ports:
-            - "5000:5000"
         depends_on:
-            - redis
+            - router
+            - mongodb
         restart: always
     nlp:
         build: ./nlp
         image: mika/nlp
         container_name: mika-nlp
-        ports:
-            - "9090:9090"
         depends_on:
+            - router
             - kernel
         restart: always
-    uibasic:
-        build: ./uibasic
-        image: mika/uibasic
-        container_name: mika-ui-basic
+    router:
+        build: ./router
+        image: mika/router
+        container_name: mika-router
         ports:
-            - "8000:8000"
-        depends_on:
-            - nlp
+            - "4000:4000"
         restart: always
-    redis:
-        image: redis
-        container_name: redis
+    smarthome:
+        build: ./smarthome
+        image: mika/smarthome
+        container_name: mika-smarthome
         ports:
-            - "6379"
-
+            - "3000:3000"
+        restart: always
+    mongodb:
+        image: mongo:latest
+        container_name: "mongodb"
+        environment:
+          - MONGO_DATA_DIR=/data/db
+          - MONGO_LOG_DIR=/dev/null
+        volumes:
+          - ./data/db:/data/db
+        ports:
+            - 27017:27017
+        restart: always
