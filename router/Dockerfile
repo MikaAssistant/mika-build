@@ -10,8 +10,8 @@ RUN npm i pm2 -g --silent
 WORKDIR /home/node
 RUN git clone https://github.com/MikaAssistant/mika-router.git app
 WORKDIR /home/node/app
-ADD ./.env /home/node/app/.env
 RUN npm install --silent
+ADD ./.env /home/node/app/.env
 ENV NODE_ENV=production
 
 EXPOSE 4000
