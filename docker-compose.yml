@@ -9,6 +9,7 @@ services:
             - mongodb
         links:
             - mongodb
+            - router
         restart: always
     nlp:
         build: ./nlp
@@ -17,6 +18,8 @@ services:
         depends_on:
             - router
             - kernel
+        links:
+            - router
         restart: always
     router:
         build: ./router
@@ -35,6 +38,7 @@ services:
             - router
             - mongodb
         links:
+            - router
             - mongodb
         restart: always
     mongodb:
