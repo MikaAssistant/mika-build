@@ -4,11 +4,11 @@ services:
         build: ./kernel
         image: mika/kernel
         container_name: mika-kernel
+        volumes:
+            - ./database:/home/node/app/src/database
         depends_on:
             - router
-            - mongodb
         links:
-            - mongodb
             - router
         restart: always
     nlp:
@@ -32,21 +32,12 @@ services:
         build: ./smarthome
         image: mika/smarthome
         container_name: mika-smarthome
+        volumes:
+            - ./database:/home/node/app/src/database
         ports:
             - "3000:3000"
         depends_on:
             - router
-            - mongodb
         links:
             - router
-            - mongodb
-        restart: always
-    mongodb:
-        image: nonoroazoro/rpi-mongo
-        container_name: "mongodb"
-        volumes:
-          - ./data/db:/data/db
-        ports:
-            - 27017:27017
-            - 28017:28017
         restart: always
