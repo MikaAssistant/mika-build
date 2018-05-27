@@ -8,7 +8,7 @@ RUN npm i pm2 -g --silent
 
 # BUILD
 WORKDIR /home/node
-RUN git clone https://github.com/MikaAssistant/mika-router.git app
+RUN git clone -b 0.2.1 https://github.com/MikaAssistant/mika-router.git app
 WORKDIR /home/node/app
 RUN npm install --silent
 ADD ./.env /home/node/app/.env

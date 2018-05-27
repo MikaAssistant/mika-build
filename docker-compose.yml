@@ -1,5 +1,12 @@
 version: '2'
 services:
+    router:
+        build: ./router
+        image: mika/router
+        container_name: mika-router
+        ports:
+            - "4000:4000"
+        restart: always
     kernel:
         build: ./kernel
         image: mika/kernel
@@ -15,18 +22,12 @@ services:
         build: ./nlp
         image: mika/nlp
         container_name: mika-nlp
+        volumes:
+            - ./database:/home/node/app/src/database
         depends_on:
             - router
-            - kernel
         links:
             - router
-        restart: always
-    router:
-        build: ./router
-        image: mika/router
-        container_name: mika-router
-        ports:
-            - "4000:4000"
         restart: always
     smarthome:
         build: ./smarthome
