@@ -13,6 +13,9 @@ services:
         container_name: mika-kernel
         volumes:
             - ./database:/home/node/app/src/database
+        ports:
+            - "1982:1982"
+            - "43210:43210"
         depends_on:
             - router
         links:

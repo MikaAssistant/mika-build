@@ -14,4 +14,7 @@ RUN npm install --silent
 ADD ./.env /home/node/app/.env
 ENV NODE_ENV=production
 
+EXPOSE 1982
+EXPOSE 43210
+
 CMD [ "pm2-docker", "app.js" ]
